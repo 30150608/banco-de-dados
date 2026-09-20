@@ -1,17 +1,22 @@
 /* UBS - Lista de Espera (DER Logico): */
 
-CREATE TABLE Paciente_Prontuario (
+CREATE TABLE Paciente (
     CPF VARCHAR NOT NULL,
     Nome VARCHAR,
-    Dt_nascimento DATE,
     Sexo ENUM('Feminino', 'Masculino'),
+    Dt_nascimento DATE,
     Endereço VARCHAR,
     CEP INT,
-    Telefone_FK INT,
-    Nr_prontuario INT,
+    PRIMARY KEY (CPF)
+);
+
+CREATE TABLE Prontuario (
+    Nr_prontuario INT NOT NULL,
     Dt_abertura DATE,
     Descricao VARCHAR,
-    PRIMARY KEY (CPF)
+    fk_Paciente_CPF VARCHAR,
+    PRIMARY KEY (Nr_prontuario),
+    FOREIGN KEY (fk_Paciente_CPF) REFERENCES Paciente(CPF)
 );
 
 CREATE TABLE Contato de Emergencia (
