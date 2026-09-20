@@ -1,23 +1,24 @@
 /* UBS - Lista de Espera (DER Logico): */
 
 CREATE TABLE Paciente_Prontuario (
-    CPF VARCHAR,
+    CPF VARCHAR NOT NULL,
     Nome VARCHAR,
-    Dt_nascimento DATA,
+    Dt_nascimento DATE,
     Sexo ENUM('Feminino', 'Masculino'),
-    Endereço VARCHAR,
-    CEP int,
-    Telefone_FK int,
-    Nr_prontuario int,
-    Dt_abertura DATA,
-    Descricao VARCHAR
+    EndereÃ§o VARCHAR,
+    CEP INT,
+    Telefone_FK INT,
+    Nr_prontuario INT,
+    Dt_abertura DATE,
+    Descricao VARCHAR,
+    PRIMARY KEY (CPF)
 );
 
 CREATE TABLE Contato de Emergencia (
-    Telefone int,
+    Telefone INT,
     Nome VARCHAR,
     Parentesco VARCHAR,
-    Nr_ordem int
+    Nr_ordem INT
 );
 
 CREATE TABLE PCD (
@@ -27,52 +28,56 @@ CREATE TABLE PCD (
 );
 
 CREATE TABLE Gestante (
-    Dt_do_parto int,
-    Semanas_de_gestacao int,
+    Dt_do_parto INT,
+    Semanas_de_gestacao INT,
     fk_Paciente_CPF VARCHAR
 );
 
 CREATE TABLE Lista de Espera (
-    Nr_Lista int,
+    Nr_Lista INT NOT NULL,
     Dt_hr_entrada datetime,
-    Posição_lista int,
+    PosiÃ§Ã£o_lista int,
     Preferencial ENUM('PCD', 'Gestante', 'Idoso 60+'),
     Status ENUM('Atendido', 'Em espera', 'Aguardando avaliacao')
+    PRIMARY KEY (Nr_lista)
 );
 
 CREATE TABLE Triagem (
     Gravidade VARCHAR,
     Tempo TIME,
-    fk_Lista de Espera_Nr_Lista int
+    fk_Lista de Espera_Nr_Lista INT
 );
 
 CREATE TABLE Sintoma (
-    Id_sintoma int,
+    Id_sintoma INT NOT NULL,
     Sintoma VARCHAR,
-    Descricao VARCHAR
+    Descricao VARCHAR,
+    PRIMARY KEY (Id_sintoma)
 );
 
 CREATE TABLE Classificacao de Risco (
-    Id_risco int,
+    Id_risco INT NOT NULL,
     Prioridade ENUM('alta', 'media', 'baixo'),
-    Cor ENUM('Vermelho', 'Amarelo', 'Verde')')
+    Cor ENUM('Vermelho', 'Amarelo', 'Verde'),
+    PRIMARY KEY (Id_risco)
 );
 
 CREATE TABLE Telefone(
     Telefone_PK INT NOT NULL,
-    Telefone VARCHAR
+    Telefone VARCHAR,
+    PRIMARY KEY(Telefone_PK)
 );
 
 CREATE TABLE Entra_na (
-    fk_Lista de Espera_Nr_Lista int,
+    fk_Lista de Espera_Nr_Lista INT,
     fk_Paciente_Prontuario_CPF VARCHAR,
-    fk_Paciente_Prontuario_Nr_prontuario int
+    fk_Paciente_Prontuario_Nr_prontuario INT
 );
 
 CREATE TABLE Contem (
-    fk_Sintoma_Id_sintoma int
+    fk_Sintoma_Id_sintoma INT
 );
 
 CREATE TABLE Determina (
-    fk_Classificacao de Risco_Id_risco int
+    fk_Classificacao de Risco_Id_risco INT
 );
