@@ -7,6 +7,7 @@ CREATE TABLE Paciente (
     Dt_nascimento DATE,
     Endereço VARCHAR,
     CEP INT,
+    Telefone_FK INT,
     PRIMARY KEY (CPF)
 );
 
