@@ -1,0 +1,78 @@
+/* UBS - Lista de Espera (DER Logico): */
+
+CREATE TABLE Paciente_Prontuario (
+    CPF VARCHAR,
+    Nome VARCHAR,
+    Dt_nascimento DATA,
+    Sexo ENUM('Feminino', 'Masculino'),
+    Endereço VARCHAR,
+    CEP int,
+    Telefone_FK int,
+    Nr_prontuario int,
+    Dt_abertura DATA,
+    Descricao VARCHAR
+);
+
+CREATE TABLE Contato de Emergencia (
+    Telefone int,
+    Nome VARCHAR,
+    Parentesco VARCHAR,
+    Nr_ordem int
+);
+
+CREATE TABLE PCD (
+    Nome_adversidade VARCHAR,
+    Acompanhante VARCHAR,
+    fk_Paciente_CPF VARCHAR
+);
+
+CREATE TABLE Gestante (
+    Dt_do_parto int,
+    Semanas_de_gestacao int,
+    fk_Paciente_CPF VARCHAR
+);
+
+CREATE TABLE Lista de Espera (
+    Nr_Lista int,
+    Dt_hr_entrada datetime,
+    Posição_lista int,
+    Preferencial ENUM('PCD', 'Gestante', 'Idoso 60+'),
+    Status ENUM('Atendido', 'Em espera', 'Aguardando avaliacao')
+);
+
+CREATE TABLE Triagem (
+    Gravidade VARCHAR,
+    Tempo TIME,
+    fk_Lista de Espera_Nr_Lista int
+);
+
+CREATE TABLE Sintoma (
+    Id_sintoma int,
+    Sintoma VARCHAR,
+    Descricao VARCHAR
+);
+
+CREATE TABLE Classificacao de Risco (
+    Id_risco int,
+    Prioridade ENUM('alta', 'media', 'baixo'),
+    Cor ENUM('Vermelho', 'Amarelo', 'Verde')')
+);
+
+CREATE TABLE Telefone(
+    Telefone_PK INT NOT NULL,
+    Telefone VARCHAR
+);
+
+CREATE TABLE Entra_na (
+    fk_Lista de Espera_Nr_Lista int,
+    fk_Paciente_Prontuario_CPF VARCHAR,
+    fk_Paciente_Prontuario_Nr_prontuario int
+);
+
+CREATE TABLE Contem (
+    fk_Sintoma_Id_sintoma int
+);
+
+CREATE TABLE Determina (
+    fk_Classificacao de Risco_Id_risco int
+);
