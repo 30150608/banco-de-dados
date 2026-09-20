@@ -1,0 +1,202 @@
+CREATE DATABASE UBS;
+USE UBS;
+
+-- TABELA: PACIENTE
+
+CREATE TABLE Paciente (
+CPF VARCHAR(14) NOT NULL,
+Nome VARCHAR(100),
+Sexo ENUM('Feminino', 'Masculino'),
+Dt_nascimento DATE,
+Endereco VARCHAR(150),
+CEP VARCHAR(9),
+Telefone_FK INT,
+
+PRIMARY KEY (CPF),
+
+CONSTRAINT FK_Paciente_Telefone
+    FOREIGN KEY (Telefone_FK)
+    REFERENCES Telefone(Telefone_PK)
+
+);
+
+-- TABELA: TELEFONE
+
+CREATE TABLE Telefone (
+Telefone_PK INT NOT NULL AUTO_INCREMENT,
+Telefone VARCHAR(20) NOT NULL,
+
+PRIMARY KEY (Telefone_PK)
+
+);
+
+-- TABELA: PRONTUARIO
+
+CREATE TABLE Prontuario (
+Nr_prontuario INT NOT NULL AUTO_INCREMENT,
+Dt_abertura DATE,
+Descricao VARCHAR(255),
+fk_Paciente_CPF VARCHAR(14) NOT NULL,
+
+PRIMARY KEY (Nr_prontuario),
+
+CONSTRAINT FK_Prontuario_Paciente
+    FOREIGN KEY (fk_Paciente_CPF)
+    REFERENCES Paciente(CPF)
+
+);
+
+-- TABELA: CONTATO DE EMERGENCIA
+
+CREATE TABLE Contato_de_Emergencia (
+Telefone INT NOT NULL,
+Nome VARCHAR(100),
+Parentesco VARCHAR(50),
+Nr_ordem INT NOT NULL,
+fk_Paciente_CPF VARCHAR(14) NOT NULL,
+
+PRIMARY KEY (Telefone, fk_Paciente_CPF),
+
+CONSTRAINT FK_Contato_Paciente
+    FOREIGN KEY (fk_Paciente_CPF)
+    REFERENCES Paciente(CPF)
+
+);
+
+-- TABELA: PCD
+
+CREATE TABLE PCD (
+Nome_adversidade VARCHAR(150),
+Acompanhante VARCHAR(100),
+fk_Paciente_CPF VARCHAR(14) NOT NULL,
+
+PRIMARY KEY (fk_Paciente_CPF),
+
+CONSTRAINT FK_PCD_Paciente
+    FOREIGN KEY (fk_Paciente_CPF)
+    REFERENCES Paciente(CPF)
+
+);
+
+-- TABELA: GESTANTE
+
+CREATE TABLE Gestante (
+Dt_do_parto DATE,
+Semanas_de_gestacao INT,
+fk_Paciente_CPF VARCHAR(14) NOT NULL,
+
+PRIMARY KEY (fk_Paciente_CPF),
+
+CONSTRAINT FK_Gestante_Paciente
+    FOREIGN KEY (fk_Paciente_CPF)
+    REFERENCES Paciente(CPF)
+
+);
+
+-- TABELA: LISTA DE ESPERA
+
+CREATE TABLE Lista_de_Espera (
+Nr_Lista INT NOT NULL AUTO_INCREMENT,
+Dt_hr_entrada DATETIME,
+Posicao_lista INT,
+Preferencial ENUM('PCD', 'Gestante', 'Idoso 60+'),
+Status ENUM(
+'Atendido',
+'Em espera',
+'Aguardando avaliacao'
+),
+
+PRIMARY KEY (Nr_Lista)
+
+);
+
+-- TABELA: TRIAGEM
+
+CREATE TABLE Triagem (
+Gravidade VARCHAR(50),
+Tempo TIME,
+fk_Lista_Nr_Lista INT NOT NULL,
+
+PRIMARY KEY (fk_Lista_Nr_Lista),
+
+CONSTRAINT FK_Triagem_Lista
+    FOREIGN KEY (fk_Lista_Nr_Lista)
+    REFERENCES Lista_de_Espera(Nr_Lista)
+
+);
+
+-- TABELA: SINTOMA
+
+CREATE TABLE Sintoma (
+Id_sintoma INT NOT NULL AUTO_INCREMENT,
+Sintoma VARCHAR(100),
+Descricao VARCHAR(255),
+
+PRIMARY KEY (Id_sintoma)
+
+);
+
+-- TABELA: CLASSIFICACAO DE RISCO
+
+CREATE TABLE Classificacao_de_Risco (
+Id_risco INT NOT NULL AUTO_INCREMENT,
+Prioridade ENUM('alta', 'media', 'baixa'),
+Cor ENUM('Vermelho', 'Amarelo', 'Verde'),
+
+PRIMARY KEY (Id_risco)
+
+);
+
+-- RELACIONAMENTO: ENTRA_NA
+
+CREATE TABLE Entra_na (
+fk_Lista_Nr_Lista INT NOT NULL,
+fk_Paciente_CPF VARCHAR(14) NOT NULL,
+
+PRIMARY KEY (fk_Lista_Nr_Lista, fk_Paciente_CPF),
+
+CONSTRAINT FK_Entra_Lista
+    FOREIGN KEY (fk_Lista_Nr_Lista)
+    REFERENCES Lista_de_Espera(Nr_Lista),
+    
+CONSTRAINT FK_Entra_Paciente
+    FOREIGN KEY (fk_Paciente_CPF)
+    REFERENCES Paciente(CPF)
+
+);
+
+-- RELACIONAMENTO: CONTEM
+
+CREATE TABLE Contem (
+fk_Lista_Nr_Lista INT NOT NULL,
+fk_Sintoma_Id_sintoma INT NOT NULL,
+
+PRIMARY KEY (fk_Lista_Nr_Lista, fk_Sintoma_Id_sintoma),
+
+CONSTRAINT FK_Contem_Lista
+    FOREIGN KEY (fk_Lista_Nr_Lista)
+    REFERENCES Lista_de_Espera(Nr_Lista),
+    
+CONSTRAINT FK_Contem_Sintoma
+    FOREIGN KEY (fk_Sintoma_Id_sintoma)
+    REFERENCES Sintoma(Id_sintoma)
+
+);
+
+-- RELACIONAMENTO: DETERMINA
+
+CREATE TABLE Determina (
+fk_Lista_Nr_Lista INT NOT NULL,
+fk_Classificacao_Id_risco INT NOT NULL,
+
+PRIMARY KEY (fk_Lista_Nr_Lista, fk_Classificacao_Id_risco),
+
+CONSTRAINT FK_Determina_Lista
+    FOREIGN KEY (fk_Lista_Nr_Lista)
+    REFERENCES Lista_de_Espera(Nr_Lista),
+    
+CONSTRAINT FK_Determina_Risco
+    FOREIGN KEY (fk_Classificacao_Id_risco)
+    REFERENCES Classificacao_de_Risco(Id_risco)
+
+);
