@@ -1,5 +1,11 @@
 /* UBS - Lista de Espera (DER Logico): */
 
+CREATE TABLE Telefone(
+    Telefone_PK INT NOT NULL,
+    Telefone VARCHAR,
+    PRIMARY KEY(Telefone_PK)
+);
+
 CREATE TABLE Paciente (
     CPF VARCHAR NOT NULL,
     Nome VARCHAR,
@@ -66,12 +72,6 @@ CREATE TABLE Classificacao de Risco (
     Prioridade ENUM('alta', 'media', 'baixo'),
     Cor ENUM('Vermelho', 'Amarelo', 'Verde'),
     PRIMARY KEY (Id_risco)
-);
-
-CREATE TABLE Telefone(
-    Telefone_PK INT NOT NULL,
-    Telefone VARCHAR,
-    PRIMARY KEY(Telefone_PK)
 );
 
 CREATE TABLE Entra_na (
