@@ -1,20 +1,6 @@
 CREATE DATABASE UBS;
 USE UBS;
 
--- TABELA: TELEFONE
-
-CREATE TABLE Telefone (
-Telefone_PK INT NOT NULL AUTO_INCREMENT,
-Telefone VARCHAR(20) NOT NULL,
-fk_Paciente_CPF VARCHAR(14) NOT NULL,
-
-PRIMARY KEY (Telefone_PK),
-
-CONSTRAINT FK_Telefone_Paciente
-    FOREIGN KEY (fk_Paciente_CPF)
-    REFERENCES Paciente(CPF)
-);
-
 -- TABELA: PACIENTE
 
 CREATE TABLE Paciente (
@@ -33,6 +19,19 @@ CONSTRAINT FK_Paciente_Telefone
 
 );
 
+-- TABELA: TELEFONE
+
+CREATE TABLE Telefone (
+Telefone_PK INT NOT NULL AUTO_INCREMENT,
+Telefone VARCHAR(20) NOT NULL,
+fk_Paciente_CPF VARCHAR(14) NOT NULL,
+
+PRIMARY KEY (Telefone_PK),
+
+CONSTRAINT FK_Telefone_Paciente
+    FOREIGN KEY (fk_Paciente_CPF)
+    REFERENCES Paciente(CPF)
+);
 
 -- TABELA: PRONTUARIO
 
