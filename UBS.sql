@@ -199,28 +199,28 @@ CONSTRAINT FK_Determina_Risco
 USE UBS;
 
 INSERT INTO Telefone (Telefone, fk_Paciente_CPF) VALUES
-('(61) 99111-0001'),
-('(61) 99111-0002'),
-('(61) 99111-0003'),
-('(61) 99111-0004'),
-('(61) 99111-0005'),
-('(61) 99111-0006'),
-('(61) 99111-0007'),
-('(61) 99111-0008'),
-('(61) 99111-0009'),
-('(61) 99111-0010');
+('(61) 99111-0001', '111.111.111-11'),
+('(61) 99111-0002', '222.222.222-22'),
+('(61) 99111-0003', '333.333.333-33'),
+('(61) 99111-0004', '444.444.444-44'),
+('(61) 99111-0005', '555.555.555-55'),
+('(61) 99111-0006', '666.666.666-66'),
+('(61) 99111-0007', '777.777.777-77'),
+('(61) 99111-0008', '888.888.888-88'),
+('(61) 99111-0009', '999.999.999-99'),
+('(61) 99111-0010', '101.010.101-01');
 
 INSERT INTO Paciente (CPF, Nome, Sexo, Dt_nascimento, Endereco, CEP) VALUES
-('111.111.111-11', 'Mariana Souza Lima',       'Feminino',  '1995-03-12', 'Rua das Flores, 120',      '70000-001', 1),
-('222.222.222-22', 'Carlos Eduardo Pereira',   'Masculino', '1988-07-22', 'Avenida Central, 450',     '70000-002', 2),
-('333.333.333-33', 'Juliana Ferreira Costa',   'Feminino',  '1992-11-05', 'Rua do Comércio, 89',      '70000-003', 3),
-('444.444.444-44', 'José Antônio Ribeiro',     'Masculino', '1950-02-18', 'Rua das Palmeiras, 32',    '70000-004', 4),
-('555.555.555-55', 'Maria das Graças Oliveira','Feminino',  '1958-09-30', 'Travessa da Paz, 15',      '70000-005', 5),
-('666.666.666-66', 'Lucas Almeida Santos',     'Masculino', '2001-01-25', 'Rua dos Ipês, 210',        '70000-006', 6),
-('777.777.777-77', 'Fernanda Rocha Martins',   'Feminino',  '1999-06-14', 'Avenida Brasil, 780',      '70000-007', 7),
-('888.888.888-88', 'Pedro Henrique Nunes',     'Masculino', '1985-12-03', 'Rua Sete de Setembro, 66', '70000-008', 8),
-('999.999.999-99', 'Camila Barbosa Dias',      'Feminino',  '1994-04-19', 'Rua das Acácias, 301',     '70000-009', 9),
-('101.010.101-01', 'Rafael Mendes Carvalho',   'Masculino', '1979-08-08', 'Alameda dos Anjos, 54',    '70000-010', 10);
+('111.111.111-11', 'Mariana Souza Lima',       'Feminino',  '1995-03-12', 'Rua das Flores, 120',      '70000-001'),
+('222.222.222-22', 'Carlos Eduardo Pereira',   'Masculino', '1988-07-22', 'Avenida Central, 450',     '70000-002'),
+('333.333.333-33', 'Juliana Ferreira Costa',   'Feminino',  '1992-11-05', 'Rua do Comércio, 89',      '70000-003'),
+('444.444.444-44', 'José Antônio Ribeiro',     'Masculino', '1950-02-18', 'Rua das Palmeiras, 32',    '70000-004'),
+('555.555.555-55', 'Maria das Graças Oliveira','Feminino',  '1958-09-30', 'Travessa da Paz, 15',      '70000-005'),
+('666.666.666-66', 'Lucas Almeida Santos',     'Masculino', '2001-01-25', 'Rua dos Ipês, 210',        '70000-006'),
+('777.777.777-77', 'Fernanda Rocha Martins',   'Feminino',  '1999-06-14', 'Avenida Brasil, 780',      '70000-007'),
+('888.888.888-88', 'Pedro Henrique Nunes',     'Masculino', '1985-12-03', 'Rua Sete de Setembro, 66', '70000-008'),
+('999.999.999-99', 'Camila Barbosa Dias',      'Feminino',  '1994-04-19', 'Rua das Acácias, 301',     '70000-009'),
+('101.010.101-01', 'Rafael Mendes Carvalho',   'Masculino', '1979-08-08', 'Alameda dos Anjos, 54',    '70000-010');
 
 INSERT INTO Prontuario (Dt_abertura, Descricao, fk_Paciente_CPF) VALUES
 ('2026-01-10', 'Acompanhamento pré-natal',               '111.111.111-11'),
