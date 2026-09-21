@@ -198,7 +198,7 @@ CONSTRAINT FK_Determina_Risco
 
 USE UBS;
 
-INSERT INTO Telefone (Telefone) VALUES
+INSERT INTO Telefone (Telefone, fk_Paciente_CPF) VALUES
 ('(61) 99111-0001'),
 ('(61) 99111-0002'),
 ('(61) 99111-0003'),
@@ -210,7 +210,7 @@ INSERT INTO Telefone (Telefone) VALUES
 ('(61) 99111-0009'),
 ('(61) 99111-0010');
 
-INSERT INTO Paciente (CPF, Nome, Sexo, Dt_nascimento, Endereco, CEP, Telefone_FK) VALUES
+INSERT INTO Paciente (CPF, Nome, Sexo, Dt_nascimento, Endereco, CEP) VALUES
 ('111.111.111-11', 'Mariana Souza Lima',       'Feminino',  '1995-03-12', 'Rua das Flores, 120',      '70000-001', 1),
 ('222.222.222-22', 'Carlos Eduardo Pereira',   'Masculino', '1988-07-22', 'Avenida Central, 450',     '70000-002', 2),
 ('333.333.333-33', 'Juliana Ferreira Costa',   'Feminino',  '1992-11-05', 'Rua do Comércio, 89',      '70000-003', 3),
