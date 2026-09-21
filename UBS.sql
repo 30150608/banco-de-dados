@@ -5,11 +5,11 @@ USE UBS;
 
 CREATE TABLE Paciente (
 CPF VARCHAR(14) NOT NULL,
-Nome VARCHAR(100),
-Sexo ENUM('Feminino', 'Masculino'),
-Dt_nascimento DATE,
-Endereco VARCHAR(150),
-CEP VARCHAR(9),
+Nome VARCHAR(100) NOT NULL,
+Sexo ENUM('Feminino', 'Masculino') NOT NULL,
+Dt_nascimento DATE NOT NULL,
+Endereco VARCHAR(150 NOT NULL,
+CEP VARCHAR(9) NOT NULL,
 
 PRIMARY KEY (CPF)
 
@@ -33,7 +33,7 @@ CONSTRAINT FK_Telefone_Paciente
 
 CREATE TABLE Prontuario (
 Nr_prontuario INT NOT NULL AUTO_INCREMENT,
-Dt_abertura DATE,
+Dt_abertura DATE NOT NULL,
 Descricao VARCHAR(255),
 fk_Paciente_CPF VARCHAR(14) NOT NULL,
 
@@ -65,8 +65,8 @@ CONSTRAINT FK_Contato_Paciente
 -- TABELA: PCD
 
 CREATE TABLE PCD (
-Nome_adversidade VARCHAR(150),
-Acompanhante VARCHAR(100),
+Nome_adversidade VARCHAR(150) NOT NULL,
+Acompanhante VARCHAR(100) NOT NULL,
 fk_Paciente_CPF VARCHAR(14) NOT NULL,
 
 PRIMARY KEY (fk_Paciente_CPF),
@@ -80,8 +80,8 @@ CONSTRAINT FK_PCD_Paciente
 -- TABELA: GESTANTE
 
 CREATE TABLE Gestante (
-Dt_do_parto DATE,
-Semanas_de_gestacao INT,
+Dt_do_parto DATENOT NOT NULL ,
+Semanas_de_gestacao INT NOT NULL,
 fk_Paciente_CPF VARCHAR(14) NOT NULL,
 
 PRIMARY KEY (fk_Paciente_CPF),
@@ -198,18 +198,6 @@ CONSTRAINT FK_Determina_Risco
 
 USE UBS;
 
-INSERT INTO Telefone (Telefone, fk_Paciente_CPF) VALUES
-('(61) 99111-0001', '111.111.111-11'),
-('(61) 99111-0002', '222.222.222-22'),
-('(61) 99111-0003', '333.333.333-33'),
-('(61) 99111-0004', '444.444.444-44'),
-('(61) 99111-0005', '555.555.555-55'),
-('(61) 99111-0006', '666.666.666-66'),
-('(61) 99111-0007', '777.777.777-77'),
-('(61) 99111-0008', '888.888.888-88'),
-('(61) 99111-0009', '999.999.999-99'),
-('(61) 99111-0010', '101.010.101-01');
-
 INSERT INTO Paciente (CPF, Nome, Sexo, Dt_nascimento, Endereco, CEP) VALUES
 ('111.111.111-11', 'Mariana Souza Lima',       'Feminino',  '1995-03-12', 'Rua das Flores, 120',      '70000-001'),
 ('222.222.222-22', 'Carlos Eduardo Pereira',   'Masculino', '1988-07-22', 'Avenida Central, 450',     '70000-002'),
@@ -221,6 +209,18 @@ INSERT INTO Paciente (CPF, Nome, Sexo, Dt_nascimento, Endereco, CEP) VALUES
 ('888.888.888-88', 'Pedro Henrique Nunes',     'Masculino', '1985-12-03', 'Rua Sete de Setembro, 66', '70000-008'),
 ('999.999.999-99', 'Camila Barbosa Dias',      'Feminino',  '1994-04-19', 'Rua das Acácias, 301',     '70000-009'),
 ('101.010.101-01', 'Rafael Mendes Carvalho',   'Masculino', '1979-08-08', 'Alameda dos Anjos, 54',    '70000-010');
+
+INSERT INTO Telefone (Telefone, fk_Paciente_CPF) VALUES
+('(61) 99111-0001', '111.111.111-11'),
+('(61) 99111-0002', '222.222.222-22'),
+('(61) 99111-0003', '333.333.333-33'),
+('(61) 99111-0004', '444.444.444-44'),
+('(61) 99111-0005', '555.555.555-55'),
+('(61) 99111-0006', '666.666.666-66'),
+('(61) 99111-0007', '777.777.777-77'),
+('(61) 99111-0008', '888.888.888-88'),
+('(61) 99111-0009', '999.999.999-99'),
+('(61) 99111-0010', '101.010.101-01');
 
 INSERT INTO Prontuario (Dt_abertura, Descricao, fk_Paciente_CPF) VALUES
 ('2026-01-10', 'Acompanhamento pré-natal',               '111.111.111-11'),
@@ -269,7 +269,7 @@ INSERT INTO Triagem (Gravidade, Tempo, fk_Lista_Nr_Lista) VALUES
 ('Baixa', '00:05:00', 6),
 ('Media', '00:07:00', 7),
 ('Media', '00:06:00', 8),
-('Baixa', '00:04:00', 9);
+('Baixa', '00:04:00', 9),
 ('Baixa', '00:04:00', 10);
 
 INSERT INTO Sintoma (Sintoma, Descricao) VALUES
@@ -319,10 +319,13 @@ INSERT INTO Determina (fk_Triagem_Lista_Nr_Lista, fk_Classificacao_Id_risco) VAL
 (2, 3),
 (3, 3),
 (4, 1),
+(5, 3)
 (6, 3),
 (7, 2),
-(9, 3);
-
+(8, 2),
+(9, 3),
+(10, 3);
+    
 SELECT * FROM Telefone;
 
 SELECT * FROM Paciente;
