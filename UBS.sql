@@ -8,7 +8,7 @@ CPF VARCHAR(14) NOT NULL,
 Nome VARCHAR(100) NOT NULL,
 Sexo ENUM('Feminino', 'Masculino') NOT NULL,
 Dt_nascimento DATE NOT NULL,
-Endereco VARCHAR(150 NOT NULL,
+Endereco VARCHAR(150) NOT NULL,
 CEP VARCHAR(9) NOT NULL,
 
 PRIMARY KEY (CPF)
@@ -80,7 +80,7 @@ CONSTRAINT FK_PCD_Paciente
 -- TABELA: GESTANTE
 
 CREATE TABLE Gestante (
-Dt_do_parto DATENOT NOT NULL ,
+Dt_do_parto DATE NOT NULL ,
 Semanas_de_gestacao INT NOT NULL,
 fk_Paciente_CPF VARCHAR(14) NOT NULL,
 
@@ -319,7 +319,7 @@ INSERT INTO Determina (fk_Triagem_Lista_Nr_Lista, fk_Classificacao_Id_risco) VAL
 (2, 3),
 (3, 3),
 (4, 1),
-(5, 3)
+(5, 3),
 (6, 3),
 (7, 2),
 (8, 2),
