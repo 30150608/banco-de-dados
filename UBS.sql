@@ -6,9 +6,13 @@ USE UBS;
 CREATE TABLE Telefone (
 Telefone_PK INT NOT NULL AUTO_INCREMENT,
 Telefone VARCHAR(20) NOT NULL,
+fk_Paciente_CPF VARCHAR(14) NOT NULL,
 
-PRIMARY KEY (Telefone_PK)
+PRIMARY KEY (Telefone_PK),
 
+CONSTRAINT FK_Telefone_Paciente
+    FOREIGN KEY (fk_Paciente_CPF)
+    REFERENCES Paciente(CPF)
 );
 
 -- TABELA: PACIENTE
@@ -18,9 +22,8 @@ CPF VARCHAR(14) NOT NULL,
 Nome VARCHAR(100),
 Sexo ENUM('Feminino', 'Masculino'),
 Dt_nascimento DATE,
-Endereco VARCHAR(150),
+Endereco VARCHAR(150),F
 CEP VARCHAR(9),
-Telefone_FK INT,
 
 PRIMARY KEY (CPF),
 
@@ -40,6 +43,7 @@ Descricao VARCHAR(255),
 fk_Paciente_CPF VARCHAR(14) NOT NULL,
 
 PRIMARY KEY (Nr_prontuario),
+UNIQUE (fk_Paciente_CPF),
 
 CONSTRAINT FK_Prontuario_Paciente
     FOREIGN KEY (fk_Paciente_CPF)
@@ -50,18 +54,17 @@ CONSTRAINT FK_Prontuario_Paciente
 -- TABELA: CONTATO DE EMERGENCIA
 
 CREATE TABLE Contato_de_Emergencia (
-Telefone VARCHAR(20) NOT NULL,
-Nome VARCHAR(100),
-Parentesco VARCHAR(50),
-Nr_ordem INT NOT NULL,
 fk_Paciente_CPF VARCHAR(14) NOT NULL,
+Nr_ordem INT NOT NULL,
+Nome VARCHAR(100) NOT NULL,
+Telefone VARCHAR(20) NOT NULL,
+Parentesco VARCHAR(50) NOT NULL,
 
-PRIMARY KEY (Telefone, fk_Paciente_CPF),
+PRIMARY KEY (fk_Paciente_CPF, Nr_ordem),
 
 CONSTRAINT FK_Contato_Paciente
     FOREIGN KEY (fk_Paciente_CPF)
     REFERENCES Paciente(CPF)
-
 );
 
 -- TABELA: PCD
@@ -98,14 +101,14 @@ CONSTRAINT FK_Gestante_Paciente
 
 CREATE TABLE Lista_de_Espera (
 Nr_Lista INT NOT NULL AUTO_INCREMENT,
-Dt_hr_entrada DATETIME,
-Posicao_lista INT,
+Dt_hr_entrada DATETIME NOT NULL,
+Posicao_lista INT NOT NULL,
 Preferencial ENUM('PCD', 'Gestante', 'Idoso 60+'),
 Status ENUM(
 'Atendido',
 'Em espera',
 'Aguardando avaliacao'
-),
+) NOT NULL,
 
 PRIMARY KEY (Nr_Lista)
 
@@ -114,8 +117,8 @@ PRIMARY KEY (Nr_Lista)
 -- TABELA: TRIAGEM
 
 CREATE TABLE Triagem (
-Gravidade VARCHAR(50),
-Tempo TIME,
+Gravidade VARCHAR(50) NOT NULL,
+Tempo TIME NOT NULL,
 fk_Lista_Nr_Lista INT NOT NULL,
 
 PRIMARY KEY (fk_Lista_Nr_Lista),
@@ -123,7 +126,6 @@ PRIMARY KEY (fk_Lista_Nr_Lista),
 CONSTRAINT FK_Triagem_Lista
     FOREIGN KEY (fk_Lista_Nr_Lista)
     REFERENCES Lista_de_Espera(Nr_Lista)
-
 );
 
 -- TABELA: SINTOMA
@@ -154,7 +156,7 @@ CREATE TABLE Entra_na (
 fk_Lista_Nr_Lista INT NOT NULL,
 fk_Paciente_CPF VARCHAR(14) NOT NULL,
 
-PRIMARY KEY (fk_Lista_Nr_Lista, fk_Paciente_CPF),
+PRIMARY KEY (fk_Lista_Nr_Lista),
 
 CONSTRAINT FK_Entra_Lista
     FOREIGN KEY (fk_Lista_Nr_Lista)
@@ -169,39 +171,35 @@ CONSTRAINT FK_Entra_Paciente
 -- RELACIONAMENTO: CONTEM
 
 CREATE TABLE Contem (
-fk_Lista_Nr_Lista INT NOT NULL,
+fk_Triagem_Lista_Nr_Lista INT NOT NULL,
 fk_Sintoma_Id_sintoma INT NOT NULL,
 
-PRIMARY KEY (fk_Lista_Nr_Lista, fk_Sintoma_Id_sintoma),
+PRIMARY KEY (fk_Triagem_Lista_Nr_Lista, fk_Sintoma_Id_sintoma),
 
-CONSTRAINT FK_Contem_Lista
-    FOREIGN KEY (fk_Lista_Nr_Lista)
-    REFERENCES Lista_de_Espera(Nr_Lista),
-    
+CONSTRAINT FK_Contem_Triagem
+    FOREIGN KEY (fk_Triagem_Lista_Nr_Lista)
+    REFERENCES Triagem(fk_Lista_Nr_Lista),
+
 CONSTRAINT FK_Contem_Sintoma
     FOREIGN KEY (fk_Sintoma_Id_sintoma)
     REFERENCES Sintoma(Id_sintoma)
-
 );
-
 -- RELACIONAMENTO: DETERMINA
 
 CREATE TABLE Determina (
-fk_Lista_Nr_Lista INT NOT NULL,
+fk_Triagem_Lista_Nr_Lista INT NOT NULL,
 fk_Classificacao_Id_risco INT NOT NULL,
 
-PRIMARY KEY (fk_Lista_Nr_Lista, fk_Classificacao_Id_risco),
+PRIMARY KEY (fk_Triagem_Lista_Nr_Lista),
 
-CONSTRAINT FK_Determina_Lista
-    FOREIGN KEY (fk_Lista_Nr_Lista)
-    REFERENCES Lista_de_Espera(Nr_Lista),
-    
+CONSTRAINT FK_Determina_Triagem
+    FOREIGN KEY (fk_Triagem_Lista_Nr_Lista)
+    REFERENCES Triagem(fk_Lista_Nr_Lista),
+
 CONSTRAINT FK_Determina_Risco
     FOREIGN KEY (fk_Classificacao_Id_risco)
     REFERENCES Classificacao_de_Risco(Id_risco)
-
 );
-
 
 USE UBS;
 
