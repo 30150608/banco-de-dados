@@ -8,14 +8,10 @@ CPF VARCHAR(14) NOT NULL,
 Nome VARCHAR(100),
 Sexo ENUM('Feminino', 'Masculino'),
 Dt_nascimento DATE,
-Endereco VARCHAR(150),F
+Endereco VARCHAR(150),
 CEP VARCHAR(9),
 
-PRIMARY KEY (CPF),
-
-CONSTRAINT FK_Paciente_Telefone
-    FOREIGN KEY (Telefone_FK)
-    REFERENCES Telefone(Telefone_PK)
+PRIMARY KEY (CPF)
 
 );
 
@@ -300,7 +296,7 @@ INSERT INTO Entra_na (fk_Lista_Nr_Lista, fk_Paciente_CPF) VALUES
 (9,  '999.999.999-99'),
 (10, '101.010.101-01');
 
-INSERT INTO Contem (fk_Lista_Nr_Lista, fk_Sintoma_Id_sintoma) VALUES
+INSERT INTO Contem (fk_Triagem_Lista_Nr_Lista, fk_Sintoma_Id_sintoma) VALUES
 (1, 4),
 (1, 8),
 (2, 2),
@@ -315,7 +311,7 @@ INSERT INTO Contem (fk_Lista_Nr_Lista, fk_Sintoma_Id_sintoma) VALUES
 (9, 2),
 (10, 8);
 
-INSERT INTO Determina (fk_Lista_Nr_Lista, fk_Classificacao_Id_risco) VALUES
+INSERT INTO Determina (fk_Triagem_Lista_Nr_Lista, fk_Classificacao_Id_risco) VALUES
 (1, 2),
 (2, 3),
 (3, 3),
