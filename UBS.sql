@@ -265,9 +265,12 @@ INSERT INTO Triagem (Gravidade, Tempo, fk_Lista_Nr_Lista) VALUES
 ('Baixa', '00:04:00', 2),
 ('Baixa', '00:06:00', 3),
 ('Alta',  '00:03:00', 4),
+('Baixa', '00:05:00', 5),
 ('Baixa', '00:05:00', 6),
 ('Media', '00:07:00', 7),
+('Media', '00:06:00', 8),
 ('Baixa', '00:04:00', 9);
+('Baixa', '00:04:00', 10);
 
 INSERT INTO Sintoma (Sintoma, Descricao) VALUES
 ('Febre',          'Temperatura corporal acima de 37,8 °C'),
